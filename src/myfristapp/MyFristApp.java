@@ -39,7 +39,7 @@ public class MyFristApp {
         sc = new Scanner(System.in);
         
        
-            //Définition des infos user    
+        /*    //Définition des infos user    
                 System.out.println("Veuillez saisir votre prénom");
                 String prenom = sc.nextLine();
                 System.out.println("______________________________\n");
@@ -58,41 +58,19 @@ public class MyFristApp {
                 System.out.println("Veuillez saisir votre année de naissance");
                 int birthYear = sc.nextInt();
                 sc.nextLine();
-                System.out.println("______________________________\n");
+                System.out.println("______________________________\n");*/
 
                 //création du user courant                
-                
-                Users myUser;
-                myUser = new Users(nom, prenom, ville, birthYear);
+                Affichage monMenu = new Affichage();
+                Users currentUser = monMenu.createUser();
               
                  
          do{  
              if(reponse == 'o')
              {
-                    //Définition des infos friends    
-                       System.out.println("Veuillez saisir votre prénom");
-                       prenom = sc.nextLine();
-                       System.out.println("______________________________\n");
-
-
-                       System.out.println("Veuillez saisir votre nom");
-                       nom = sc.nextLine();
-                       System.out.println("______________________________\n");
-
-
-                       System.out.println("Veuillez saisir votre Ville");
-                       ville = sc.nextLine();
-                       System.out.println("______________________________\n");
-
-
-                       System.out.println("Veuillez saisir votre année de naissance");
-                       birthYear = sc.nextInt();
-                       sc.nextLine();
-                       System.out.println("______________________________\n");
-
-                       Users myFriend;
-                       myFriend = new Users(nom, prenom ,ville, birthYear);
-                       myUser.setUsers(myFriend);
+                 Users otherUsers = monMenu.createUser();
+                  
+                 currentUser.setUsers(otherUsers);
                     
              }
 
@@ -110,8 +88,8 @@ public class MyFristApp {
                 {
                     case 1:
                         //recupère info user
-                        messagesTab = myUser.getAllMessages();
-                        System.out.println(myUser.presenteMoi());
+                        messagesTab = currentUser.getAllMessages();
+                        System.out.println(currentUser.presenteMoi());
 
                         //parcourt le tableau message pour les afficher
                         for (String messagesTab1 : messagesTab) {
@@ -140,29 +118,29 @@ public class MyFristApp {
                             case 1:
                                 System.out.println("Taper votre nouveau prénom");
                                 String newPrenom = sc.nextLine();
-                                myUser.setPrenom(newPrenom);
-                                System.out.println(myUser.getPrenom());
+                                currentUser.setPrenom(newPrenom);
+                                System.out.println(currentUser.getPrenom());
                                 break;
 
                             case 2:
                                 System.out.println("Taper votre nouveau nom");
                                 String newNom = sc.nextLine();
-                                myUser.setNom(newNom);
-                                System.out.println(myUser.getNom());
+                                currentUser.setNom(newNom);
+                                System.out.println(currentUser.getNom());
                                 break;
 
                             case 3:
                                 System.out.println("Taper votre nouvelle ville");
                                 String newVille = sc.nextLine();
-                                myUser.setVille(newVille);
-                                System.out.println(myUser.getVille());
+                                currentUser.setVille(newVille);
+                                System.out.println(currentUser.getVille());
                                 break;
 
                             case 4:
                                 System.out.println("Taper votre nouvelle année de naissance");
                                 int newBirthYear = sc.nextInt();
-                                myUser.setBirthYear(newBirthYear);
-                                System.out.println(myUser.getBirthYear());
+                                currentUser.setBirthYear(newBirthYear);
+                                System.out.println(currentUser.getBirthYear());
                                 break;
 
                             default:
@@ -176,13 +154,13 @@ public class MyFristApp {
                         System.out.println("Veuillez écrire votre message!");
                         System.out.println("______________________________\n");
                         String message = sc.nextLine();
-                        myUser.setMessages(message);
+                        currentUser.setMessages(message);
                         System.out.println("Votre message a bien été enregistré!");
                         System.out.println("______________________________\n");
                         break;
 
                     case 4:
-                        messagesTab = myUser.getAllMessages();
+                        messagesTab = currentUser.getAllMessages();
                          nbMsg =0;                  
                         //parcourt le tableau message
                         for (String messagesTab1 : messagesTab) {
@@ -205,7 +183,7 @@ public class MyFristApp {
                             //gère les différents choix du user et retourne le message correspondant 
                             if(choix >0 && choix <= nbMsg)
                             {
-                                System.out.println(myUser.getOneMessage(choix-1));
+                                System.out.println(currentUser.getOneMessage(choix-1));
                             }
                             else{
                                 System.out.println("Désolé, mais votre choix ne correspond à aucun message.");
@@ -215,7 +193,7 @@ public class MyFristApp {
                         break;
 
                     case 5:
-                        usersTab = myUser.getAllUsers();
+                        usersTab = currentUser.getAllUsers();
                         nbUsers =0;
                         int id =0;
                         
@@ -256,7 +234,7 @@ public class MyFristApp {
                         break;
 
                     case 6:
-                        usersTab = myUser.getAllUsers();
+                        usersTab = currentUser.getAllUsers();
                         nbUsers =0;
                         boolean isFriend;
                                                 
@@ -283,7 +261,7 @@ public class MyFristApp {
                             //gère les différents choix du user et retourne l amis correspondant 
                             if(choix >0 && choix <= nbUsers && usersTab[choix-1].isFriend() == true)
                             {
-                                System.out.println(myUser.getOneUser(choix-1));
+                                System.out.println(currentUser.getOneUser(choix-1));
                                 System.out.println("______________________________\n");
                             }
                             else{
