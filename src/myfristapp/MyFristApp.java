@@ -54,15 +54,16 @@ public class MyFristApp {
 
             //boucle permettant les différents choix
             do {
+                messagesTab = currentUser.getAllMessages();
+                usersTab = currentUser.getAllUsers();
                //recupération du choix utilisateur
                choix = monMenu.menu();
-
-
+               
                 switch(choix)
                 {
                     case 1:
                         //recupère info user
-                        messagesTab = currentUser.getAllMessages();
+                        
                         System.out.println(currentUser.presenteMoi());
 
                         //parcourt le tableau message pour les afficher
@@ -87,58 +88,27 @@ public class MyFristApp {
                          //recupération du choix utilisateur
                         choix = monMenu.menuModif();
                         
-                        switch(choix)
-                        {
-                            case 1:
-                                System.out.println("Taper votre nouveau prénom");
-                                String newPrenom = sc.nextLine();
-                                currentUser.setPrenom(newPrenom);
-                                System.out.println(currentUser.getPrenom());
-                                break;
-
-                            case 2:
-                                System.out.println("Taper votre nouveau nom");
-                                String newNom = sc.nextLine();
-                                currentUser.setNom(newNom);
-                                System.out.println(currentUser.getNom());
-                                break;
-
-                            case 3:
-                                System.out.println("Taper votre nouvelle ville");
-                                String newVille = sc.nextLine();
-                                currentUser.setVille(newVille);
-                                System.out.println(currentUser.getVille());
-                                break;
-
-                            case 4:
-                                System.out.println("Taper votre nouvelle année de naissance");
-                                int newBirthYear = sc.nextInt();
-                                currentUser.setBirthYear(newBirthYear);
-                                System.out.println(currentUser.getBirthYear());
-                                break;
-
-                            default:
-                                System.out.println("erreur");
-                                break;
-                        }
+                        //Mise en place du switch de modification des informations du current user
+                        System.out.println(monMenu.switchModif(currentUser, choix));
+                        
                         break;
 
                         //Création des messages et insertion dans le tableau
                     case 3:
-                        System.out.println("Veuillez écrire votre message!\n______________________________\n");
-                        String message = sc.nextLine();
-                        currentUser.setMessages(message);
-                        System.out.println("Votre message a bien été enregistré!\n______________________________\n");
+                        System.out.println(monMenu.insertCreateMsg(currentUser));
                         break;
 
                     case 4:
-                        messagesTab = currentUser.getAllMessages();
-                         nbMsg =0;                  
+                       
+                         nbMsg =0;
+                         int id = 1;
                         //parcourt le tableau message
                         for (String messagesTab1 : messagesTab) {
                             //verifie si il y a des messages et permet de compter le nombre d'entrée
                             if(messagesTab1 != null){
-                                nbMsg ++;                           
+                                System.out.println(id + " -  " + messagesTab1.substring(0, 6) + "...");
+                                nbMsg ++;
+                                id ++;
                             }                        
                         }
 
@@ -147,27 +117,15 @@ public class MyFristApp {
                         //permet le choix du message si des messages existent                    
                         if(nbMsg > 0)
                         {
-                            System.out.println("Quel message souhaitez vous afficher? (taper son numero)");
-                            choix = sc.nextInt();
-                            sc.nextLine();
-                            System.out.println("______________________________\n");
-
-                            //gère les différents choix du user et retourne le message correspondant 
-                            if(choix >0 && choix <= nbMsg)
-                            {
-                                System.out.println(currentUser.getOneMessage(choix-1));
-                            }
-                            else{
-                                System.out.println("Désolé, mais votre choix ne correspond à aucun message.");
-                            }
+                           System.out.println(monMenu.seeMsg(choix, nbMsg, currentUser));
 
                         }
                         break;
 
                     case 5:
-                        usersTab = currentUser.getAllUsers();
+                        
                         nbUsers =0;
-                        int id =0;
+                        id =0;
                         
                         for (Users userTab : usersTab) {
                             
@@ -204,7 +162,7 @@ public class MyFristApp {
                         break;
 
                     case 6:
-                        usersTab = currentUser.getAllUsers();
+                        //usersTab = currentUser.getAllUsers();
                         nbUsers =0;
                         boolean isFriend;
                                                 
