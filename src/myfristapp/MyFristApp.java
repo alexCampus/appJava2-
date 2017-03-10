@@ -141,7 +141,7 @@ public class MyFristApp {
                         //permet le choix des amis si des amis existent
                         if(nbUsers > 0) 
                         {
-                            System.out.println(monMenu.seeFriends(choix, nbUsers, usersTab));
+                            System.out.println(monMenu.addFriends(choix, nbUsers, usersTab));
                             
                         }                        
                        
@@ -166,23 +166,8 @@ public class MyFristApp {
                         //permet le choix des amis si des amis existent
                         if(nbUsers > 0) 
                         {
-                            System.out.println("Quel amis souhaitez vous afficher? (taper son numero)");
-                            choix = sc.nextInt();
-                            sc.nextLine();   
-                            System.out.println("______________________________\n");
-                               
-                                   
-                            //gère les différents choix du user et retourne l amis correspondant 
-                            if(choix >0 && choix <= nbUsers && usersTab[choix-1].isFriend() == true)
-                            {
-                                System.out.println(currentUser.getOneUser(choix-1) + "\n______________________________\n");
-                            }
-                            else{
-                                System.out.println("Désolé, mais votre choix ne correspond à aucun amis.\n______________________________\n");
-                            }
-                        }
-                            
-                       
+                           System.out.println(monMenu.seeFriend(choix, nbUsers, usersTab, currentUser));
+                        }                
                        
                         break;
 
@@ -193,9 +178,7 @@ public class MyFristApp {
 
                 do{
                     System.out.println("Voulez vous continuer? (O/N)");
-                    reponse = sc.next().charAt(0);
-                    sc.nextLine();
-                    System.out.println("______________________________\n");
+                    reponse = monMenu.reponseBoucle();
                 }while(reponse != 'N' && reponse != 'O');
 
             }while(reponse == 'O');

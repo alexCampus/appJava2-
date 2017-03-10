@@ -131,7 +131,7 @@ public class Affichage {
         }     
      }
      
-     public String seeFriends(int choix, int nbUsers, Users [] usersTab){
+     public String addFriends(int choix, int nbUsers, Users [] usersTab){
          System.out.println("Quel amis souhaitez vous aimé? (taper son numero)");
             choix = sc.nextInt();
             sc.nextLine();
@@ -147,6 +147,30 @@ public class Affichage {
             else{
                 return "Désolé, mais votre choix ne correspond à aucun amis.\n______________________________\n";
             }
+     }
+     
+     public String seeFriend(int choix, int nbUsers, Users [] usersTab, Users currentUser ){
+         System.out.println("Quel amis souhaitez vous afficher? (taper son numero)");
+            choix = sc.nextInt();
+            sc.nextLine();   
+            System.out.println("______________________________\n");
+
+
+            //gère les différents choix du user et retourne l amis correspondant 
+            if(choix >0 && choix <= nbUsers && usersTab[choix-1].isFriend() == true)
+            {
+                return currentUser.getOneUser(choix-1) + "\n______________________________\n";
+            }
+            else{
+                return "Désolé, mais votre choix ne correspond à aucun amis.\n______________________________\n";
+            }
+     }
+     
+     public char reponseBoucle(){
+            char reponse = sc.next().charAt(0);
+            sc.nextLine();
+            System.out.println("______________________________\n");
+            return reponse;
      }
        
            
