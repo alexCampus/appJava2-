@@ -131,25 +131,25 @@ public class Affichage {
         }     
      }
      
-     public String addFriends(int choix, int nbUsers, Users [] usersTab){
+     public String addFriends(int choix, IntWrapper nbUsers, Users [] usersTab){
          System.out.println("Quel amis souhaitez vous aimé? (taper son numero)");
             choix = sc.nextInt();
             sc.nextLine();
             System.out.println("______________________________\n");
 
             //gère les différents choix du user et valide le lien d'amitié 
-            if(choix >=0 && choix <= nbUsers)
+            if(choix >0 && choix <= nbUsers.getValue())
             {
-                usersTab[choix].toBeFriend();      
+                usersTab[choix -1].toBeFriend();      
 
-                return "Vous etes maintenant amis avec " + usersTab[choix].getPrenom() + " " + usersTab[choix].getNom() + "\n______________________________\n";
+                return "Vous etes maintenant amis avec " + usersTab[choix-1].getPrenom() + " " + usersTab[choix-1].getNom() + "\n______________________________\n";
             }
             else{
                 return "Désolé, mais votre choix ne correspond à aucun amis.\n______________________________\n";
             }
      }
      
-     public String seeFriend(int choix, int nbUsers, Users [] usersTab, Users currentUser ){
+     public String seeFriend(int choix, IntWrapper nbUsers, Users [] usersTab, Users currentUser ){
          System.out.println("Quel amis souhaitez vous afficher? (taper son numero)");
             choix = sc.nextInt();
             sc.nextLine();   
@@ -157,7 +157,7 @@ public class Affichage {
 
 
             //gère les différents choix du user et retourne l amis correspondant 
-            if(choix >0 && choix <= nbUsers && usersTab[choix-1].isFriend() == true)
+            if(choix >0 && choix <= nbUsers.getValue() && usersTab[choix-1].isFriend() == true)
             {
                 return currentUser.getOneUser(choix-1) + "\n______________________________\n";
             }
@@ -165,6 +165,13 @@ public class Affichage {
                 return "Désolé, mais votre choix ne correspond à aucun amis.\n______________________________\n";
             }
      }
+     
+     public String infoFriend(IntWrapper nbUsers, IntWrapper id, Users userTab){        
+            
+            id.setValue(id.getValue() + 1);
+            nbUsers.setValue(nbUsers.getValue()+ 1);
+            return id.getValue() + " " + userTab.getPrenom() + " " + userTab.getNom();
+    }
      
      public char reponseBoucle(){
             char reponse = sc.next().charAt(0);

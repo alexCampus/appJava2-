@@ -31,8 +31,8 @@ public class MyFristApp {
         int choix;
         //var user ajout tableau user
         Users usersTab [];
-        int nbUsers =0;
-       
+        IntWrapper nbUsers=new  IntWrapper();
+        IntWrapper id =new  IntWrapper();
         
         //Initialisation scanner
         Scanner sc;
@@ -54,16 +54,19 @@ public class MyFristApp {
 
             //boucle permettant les différents choix
             do {
+                
+                //initialisation des variables ayant une pportée globale dans la boucle
                 messagesTab = currentUser.getAllMessages();
                 usersTab = currentUser.getAllUsers();
+                
                //recupération du choix utilisateur
                choix = monMenu.menu();
                
                 switch(choix)
                 {
                     case 1:
-                        //recupère info user
                         
+                        //recupère info user                        
                         System.out.println(currentUser.presenteMoi());
 
                         //parcourt le tableau message pour les afficher
@@ -101,14 +104,15 @@ public class MyFristApp {
                     case 4:
                        
                          nbMsg =0;
-                         int id = 1;
+  
+                         id.setValue(1);
                         //parcourt le tableau message
                         for (String messagesTab1 : messagesTab) {
                             //verifie si il y a des messages et permet de compter le nombre d'entrée
                             if(messagesTab1 != null){
                                 System.out.println(id + " -  " + messagesTab1.substring(0, 6) + "...");
                                 nbMsg ++;
-                                id ++;
+                                id.setValue(id.getValue()+1);
                             }                        
                         }
 
@@ -124,47 +128,45 @@ public class MyFristApp {
 
                     case 5:
                         
-                        nbUsers =0;
-                        id =0;
+                        nbUsers.setValue(0);
+                        id.setValue(0);
                         
                         for (Users userTab : usersTab) {
                             
                             if(userTab != null) {
-                                System.out.println(id + " " + userTab.getPrenom() + " " + userTab.getNom());
-                                nbUsers ++;
-                                id ++; 
+                               System.out.println(monMenu.infoFriend(nbUsers, id, userTab));
                             }
                         }
                         
-                        System.out.println("Il existe  " + nbUsers + " potentiellement amis.");
+                        System.out.println("Il existe  " + nbUsers.getValue() + " potentiellement amis.");
                         
                         //permet le choix des amis si des amis existent
-                        if(nbUsers > 0) 
+                        if(nbUsers.getValue() > 0) 
                         {
                             System.out.println(monMenu.addFriends(choix, nbUsers, usersTab));
-                            
+   
                         }                        
                        
                         break;
 
                     case 6:
                         //usersTab = currentUser.getAllUsers();
-                        nbUsers =0;
+                        nbUsers.setValue(0);
+                        id.setValue(0);
                         boolean isFriend;
                                                 
                         for (Users userTab : usersTab) {
                            
                             if(userTab != null && userTab.isFriend() == true) {
-                                 
-                                 nbUsers ++;
+                               System.out.println(monMenu.infoFriend(nbUsers, id, userTab));
                             }
                            
                         }
                         
-                        System.out.println("Vous avez  " + nbUsers + " amis.");
+                        System.out.println("Vous avez  " + nbUsers.getValue() + " amis.");
                         
                         //permet le choix des amis si des amis existent
-                        if(nbUsers > 0) 
+                        if(nbUsers.getValue() > 0) 
                         {
                            System.out.println(monMenu.seeFriend(choix, nbUsers, usersTab, currentUser));
                         }                
@@ -177,26 +179,24 @@ public class MyFristApp {
                  }
 
                 do{
+                    
                     System.out.println("Voulez vous continuer? (O/N)");
                     reponse = monMenu.reponseBoucle();
+                    
                 }while(reponse != 'N' && reponse != 'O');
 
             }while(reponse == 'O');
             
             do{
+                
                     System.out.println("Voulez vous saisir un autre utilisateur? (o/n)");
-                    reponse = sc.next().charAt(0);
-                    sc.nextLine();
-                    System.out.println("______________________________\n");
-                }while(reponse != 'n' && reponse != 'o');
-            
-           
+                    reponse = monMenu.reponseBoucle();
+                    
+                }while(reponse != 'n' && reponse != 'o');           
             
         }while(reponse == 'o');
         
         System.out.println("Au revoir !");
-        
-        
-        
+  
     }
 }
