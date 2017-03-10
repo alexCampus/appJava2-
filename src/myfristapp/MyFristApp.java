@@ -6,7 +6,7 @@
 package myfristapp;
 
 
-import java.util.Arrays;
+
 import java.util.Scanner;
 
 /**
@@ -38,28 +38,6 @@ public class MyFristApp {
         Scanner sc;
         sc = new Scanner(System.in);
         
-       
-        /*    //Définition des infos user    
-                System.out.println("Veuillez saisir votre prénom");
-                String prenom = sc.nextLine();
-                System.out.println("______________________________\n");
-
-
-                System.out.println("Veuillez saisir votre nom");
-                String nom = sc.nextLine();
-                System.out.println("______________________________\n");
-
-
-                System.out.println("Veuillez saisir votre Ville");
-                String ville = sc.nextLine();
-                System.out.println("______________________________\n");
-
-
-                System.out.println("Veuillez saisir votre année de naissance");
-                int birthYear = sc.nextInt();
-                sc.nextLine();
-                System.out.println("______________________________\n");*/
-
                 //création du user courant                
                 Affichage monMenu = new Affichage();
                 Users currentUser = monMenu.createUser();
@@ -76,12 +54,8 @@ public class MyFristApp {
 
             //boucle permettant les différents choix
             do {
-                System.out.println("Que souhaitez vous faire : taper \n 1 pour voir votre profil, \n 2 pour modifier vos informations, \n 3 pour écrire un message, \n 4 pour afficher un message, \n 5 pour ajouter un ami, \n 6 pour afficher les infos des amis");
-                System.out.println("______________________________\n");
-                choix = sc.nextInt();
-                sc.nextLine();
-                System.out.println("______________________________\n");
-
+               //recupération du choix utilisateur
+               choix = monMenu.menu();
 
 
                 switch(choix)
@@ -102,17 +76,17 @@ public class MyFristApp {
 
                         //si il n'y a aucun messages
                         if(checkMsg == false){
-                            System.out.println("Désolé vous n'avez pas encore de message");
-                            System.out.println("______________________________\n");
+                            System.out.println("Désolé vous n'avez pas encore de message\n______________________________\n");
+                           
                         }                       
                         break;
 
                         //Permet l'update des infos du user
                     case 2 :
-                        System.out.println("Que souhaitez vous modifier : \n 1 Votre Prénom, \n 2 Votre Nom, \n 3 Votre Ville, \n 4 Votre Date de Naissance ");
-                        System.out.println("______________________________\n");
-                        choix = sc.nextInt();
-                        sc.nextLine();
+                        
+                         //recupération du choix utilisateur
+                        choix = monMenu.menuModif();
+                        
                         switch(choix)
                         {
                             case 1:
@@ -151,12 +125,10 @@ public class MyFristApp {
 
                         //Création des messages et insertion dans le tableau
                     case 3:
-                        System.out.println("Veuillez écrire votre message!");
-                        System.out.println("______________________________\n");
+                        System.out.println("Veuillez écrire votre message!\n______________________________\n");
                         String message = sc.nextLine();
                         currentUser.setMessages(message);
-                        System.out.println("Votre message a bien été enregistré!");
-                        System.out.println("______________________________\n");
+                        System.out.println("Votre message a bien été enregistré!\n______________________________\n");
                         break;
 
                     case 4:
@@ -221,12 +193,10 @@ public class MyFristApp {
                             {
                                 usersTab[choix].toBeFriend();      
                               
-                                System.out.println("Vous etes maintenant amis avec " + usersTab[choix].getPrenom() + " " + usersTab[choix].getNom());
-                                System.out.println("______________________________\n");
+                                System.out.println("Vous etes maintenant amis avec " + usersTab[choix].getPrenom() + " " + usersTab[choix].getNom() + "\n______________________________\n");
                             }
                             else{
-                                System.out.println("Désolé, mais votre choix ne correspond à aucun amis.");
-                                System.out.println("______________________________\n");
+                                System.out.println("Désolé, mais votre choix ne correspond à aucun amis.\n______________________________\n");
                             }
                             
                         }                        
@@ -261,12 +231,10 @@ public class MyFristApp {
                             //gère les différents choix du user et retourne l amis correspondant 
                             if(choix >0 && choix <= nbUsers && usersTab[choix-1].isFriend() == true)
                             {
-                                System.out.println(currentUser.getOneUser(choix-1));
-                                System.out.println("______________________________\n");
+                                System.out.println(currentUser.getOneUser(choix-1) + "\n______________________________\n");
                             }
                             else{
-                                System.out.println("Désolé, mais votre choix ne correspond à aucun amis.");
-                                System.out.println("______________________________\n");
+                                System.out.println("Désolé, mais votre choix ne correspond à aucun amis.\n______________________________\n");
                             }
                         }
                             

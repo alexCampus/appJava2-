@@ -7,21 +7,34 @@ package myfristapp;
 
 import java.util.Scanner;
 
+
 /**
  *
  * @author alexandre.depembroke
  */
 public class Affichage {
+   
+    private static Scanner sc;
     
-    public Affichage(){       
+    public Affichage(){ 
+         
+    }
+     
+
+    public static void main(String[] args) {
+
+        
+
     }
     
     
     public Users createUser(){
         
-        //Initialisation scanner
-        Scanner sc;
+        //Initialisation scanner        
         sc = new Scanner(System.in);
+        
+        
+        
         
        
             //Définition des infos user    
@@ -47,6 +60,30 @@ public class Affichage {
                 
                 return new Users(nom, prenom ,ville, birthYear);
                 
+    }
+    
+    public int menu(){
+        
+        //Initialisation scanner
+        sc = new Scanner(System.in);
+        
+        System.out.println("Que souhaitez vous faire : taper \n 1 pour voir votre profil, \n 2 pour modifier vos informations, \n 3 pour écrire un message, \n 4 pour afficher un message, \n 5 pour ajouter un ami, \n 6 pour afficher les infos des amis\n______________________________\n");
+                int choix = sc.nextInt();
+                sc.nextLine();
+                System.out.println("______________________________\n");
+                return choix;
+    }
+    
+    public int menuModif() {
+        
+        //Initialisation scanner
+        sc = new Scanner(System.in);
+        
+         System.out.println("Que souhaitez vous modifier : \n 1 Votre Prénom, \n 2 Votre Nom, \n 3 Votre Ville, \n 4 Votre Date de Naissance\n______________________________\n ");
+                int choix = sc.nextInt();
+                sc.nextLine();
+                
+                return choix;
     }
     
     
