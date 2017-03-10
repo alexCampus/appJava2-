@@ -141,21 +141,7 @@ public class MyFristApp {
                         //permet le choix des amis si des amis existent
                         if(nbUsers > 0) 
                         {
-                            System.out.println("Quel amis souhaitez vous aimé? (taper son numero)");
-                            choix = sc.nextInt();
-                            sc.nextLine();
-                            System.out.println("______________________________\n");
-                          
-                            //gère les différents choix du user et valide le lien d'amitié 
-                            if(choix >=0 && choix <= nbUsers)
-                            {
-                                usersTab[choix].toBeFriend();      
-                              
-                                System.out.println("Vous etes maintenant amis avec " + usersTab[choix].getPrenom() + " " + usersTab[choix].getNom() + "\n______________________________\n");
-                            }
-                            else{
-                                System.out.println("Désolé, mais votre choix ne correspond à aucun amis.\n______________________________\n");
-                            }
+                            System.out.println(monMenu.seeFriends(choix, nbUsers, usersTab));
                             
                         }                        
                        

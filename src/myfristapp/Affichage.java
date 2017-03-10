@@ -116,21 +116,37 @@ public class Affichage {
      
      public String seeMsg(int choix, int nbMsg, Users currentUser){        
         
-                System.out.println("Quel message souhaitez vous afficher? (taper son numero)");
-                choix = sc.nextInt();
-                sc.nextLine();
-                System.out.println("______________________________\n");
+        System.out.println("Quel message souhaitez vous afficher? (taper son numero)");
+        choix = sc.nextInt();
+        sc.nextLine();
+        System.out.println("______________________________\n");
 
-                //gère les différents choix du user et retourne le message correspondant 
-                if(choix >0 && choix <= nbMsg)
-                {
-                    return currentUser.getOneMessage(choix-1);
-                }
-                else{
-                    return "Désolé, mais votre choix ne correspond à aucun message.";
-                }
-
+        //gère les différents choix du user et retourne le message correspondant 
+        if(choix >0 && choix <= nbMsg)
+        {
+            return currentUser.getOneMessage(choix-1);
+        }
+        else{
+            return "Désolé, mais votre choix ne correspond à aucun message.";
+        }     
+     }
      
+     public String seeFriends(int choix, int nbUsers, Users [] usersTab){
+         System.out.println("Quel amis souhaitez vous aimé? (taper son numero)");
+            choix = sc.nextInt();
+            sc.nextLine();
+            System.out.println("______________________________\n");
+
+            //gère les différents choix du user et valide le lien d'amitié 
+            if(choix >=0 && choix <= nbUsers)
+            {
+                usersTab[choix].toBeFriend();      
+
+                return "Vous etes maintenant amis avec " + usersTab[choix].getPrenom() + " " + usersTab[choix].getNom() + "\n______________________________\n";
+            }
+            else{
+                return "Désolé, mais votre choix ne correspond à aucun amis.\n______________________________\n";
+            }
      }
        
            
