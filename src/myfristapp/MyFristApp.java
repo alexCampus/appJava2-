@@ -32,6 +32,8 @@ public class MyFristApp {
         int choix;
         //var user ajout tableau user
         ArrayList<Users> usersTab = new ArrayList<>();
+        //var firend ajout tableau friends
+        ArrayList<Users> friends = new ArrayList<>();
         IntWrapper nbUsers=new  IntWrapper();
         IntWrapper id =new  IntWrapper();
         
@@ -42,15 +44,16 @@ public class MyFristApp {
                 //création du user courant                
                 Affichage monMenu = new Affichage();
                 Users currentUser = monMenu.createUser();
+                Personn mesUsers = new Personn();
               
                  
          do{  
              if(reponse == 'o')
              {
                  Users otherUsers = monMenu.createUser();
+                 
+                 mesUsers.setUsers(otherUsers);
                   
-                 currentUser.setUsers(otherUsers);
-                    
              }
 
             //boucle permettant les différents choix
@@ -58,7 +61,8 @@ public class MyFristApp {
                 
                 //initialisation des variables ayant une pportée globale dans la boucle
                 messagesTab = currentUser.getAllMessages();
-                usersTab = currentUser.getAllUsers();
+                usersTab = mesUsers.getAllUsers();
+                friends = currentUser.getAllFriends();
                 
                //recupération du choix utilisateur
                choix = monMenu.menu();
@@ -132,10 +136,11 @@ public class MyFristApp {
                         nbUsers.setValue(0);
                         id.setValue(0);
                         
-                        for (Users userTab : usersTab) {
-                            
-                            if(userTab != null && userTab.isFriend() == false) {
-                               System.out.println(monMenu.infoFriend(nbUsers, id, userTab));
+                        for (Users user : usersTab) {
+                           monMenu.infoFriend(nbUsers, id, user);
+                            if(user != null && user.isFriend() == false) {
+                               System.out.println(id.getValue() + " " + user.getPrenom() + " " + user.getNom());
+                               
                             }
                         }
                         
@@ -144,23 +149,23 @@ public class MyFristApp {
                         //permet le choix des amis si des amis existent
                         if(nbUsers.getValue() > 0) 
                         {
-                            System.out.println(monMenu.addFriends(nbUsers, usersTab));
+                            System.out.println(monMenu.addFriends(nbUsers, usersTab, currentUser));
    
                         }                        
                        
                         break;
 
                     case 6:
-                        //usersTab = currentUser.getAllUsers();
-                        nbUsers.setValue(0);
+                  
+                        nbUsers.setValue(friends.size());
                         id.setValue(0);
                         boolean isFriend;
                                                 
-                        for (Users userTab : usersTab) {
+                        for (Users friend : friends) {
                            
-                            if(userTab != null && userTab.isFriend() == true) {
-                               System.out.println(monMenu.infoFriend(nbUsers, id, userTab));
-                               //System.out.println(userTab);
+                            if(friend != null && friend.isFriend() == true) {
+                               System.out.println(monMenu.infoFriend(nbUsers, id, friend));
+                               
                            
                             }
                            

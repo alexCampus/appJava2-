@@ -24,6 +24,7 @@ public class Users {
     private int nbMessage;
     private String presenteMoi;
     private ArrayList<Users> users = new ArrayList<Users>();
+    private ArrayList<Users> friends = new ArrayList<Users>();
     private int nbUser;
     private boolean isFriend;
     
@@ -75,13 +76,13 @@ public class Users {
     public String getOneMessage(int nb){
         return messages.get(nb);
     }
-    
-    public ArrayList<Users> getAllUsers(){
-        return users;
+   
+     public ArrayList<Users> getAllFriends(){
+        return friends;
     }
-    
-    public String getOneUser(int nb){
-        return users.get(nb).presenteMoi();
+     
+     public String getOneFriend(int nb){
+        return friends.get(nb).presenteMoi();
     }
     
     public String presenteMoi(){
@@ -117,14 +118,11 @@ public class Users {
     public void setMessages(String pMessage)
     {       
         messages.add(pMessage);
-        //nbMessage ++;
-        
     }
-    
-    public void setUsers(Users pUser)
+   
+     public void setFriends(Users pFriend)
     {
-        users.add(pUser);
-        //nbUser ++;
+        friends.add(pFriend); 
     }
     
     public void toBeFriend(){
