@@ -46,7 +46,31 @@ public class Affichage {
                 sc.nextLine();
                 System.out.println("______________________________\n");
                 
-                return new Users(nom, prenom ,ville, birthYear);
+                System.out.println("Etes vous un modérateur? (oui/non)");
+                String isModerateur = sc.nextLine();
+                System.out.println("______________________________\n");
+                
+                if("oui".equals(isModerateur))
+                {
+                    System.out.println("Veuillez saisir votre niveau de moderation. (1 ou 2)");
+                    int levelModeration = sc.nextInt();
+                    sc.nextLine();
+                    System.out.println("______________________________\n");
+                
+                    if(levelModeration == 1 || levelModeration == 2)
+                    {
+                       
+                        return new Moderateur(nom, prenom, ville, birthYear, levelModeration);
+                    }
+                    
+                }
+               
+                    return new Users(nom, prenom ,ville, birthYear);
+
+            
+                
+            
+                      
                 
     }
     

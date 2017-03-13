@@ -20,11 +20,11 @@ public class Users {
     private String ville;
     private int birthYear;
     private int age;
-    private ArrayList<String> messages = new ArrayList<String>();
+    private final ArrayList<String> messages = new ArrayList<>();
     private int nbMessage;
     private String presenteMoi;
-    private ArrayList<Users> users = new ArrayList<Users>();
-    private ArrayList<Users> friends = new ArrayList<Users>();
+    private final ArrayList<Users> users = new ArrayList<>();
+    private final ArrayList<Users> friends = new ArrayList<>();
     private int nbUser;
     private boolean isFriend;
     
@@ -39,8 +39,19 @@ public class Users {
         isFriend = false;
       
     }
-    
-   
+    /*
+        //Constructeur d'un User
+    public Users(){
+        System.out.println("Création de l'utilisateur " );
+        System.out.println("______________________________\n");
+        nom = "Inconnu";
+        prenom = "Inconnu";
+        ville = "Inconnu";
+        birthYear = 0; 
+        isFriend = false;
+      
+    }
+   */
     
     // ACCESSEURS
     

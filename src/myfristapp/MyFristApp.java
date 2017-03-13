@@ -43,9 +43,12 @@ public class MyFristApp {
         
                 //création du user courant                
                 Affichage monMenu = new Affichage();
-                Users currentUser = monMenu.createUser();
+                Users currentUser =  monMenu.createUser();
                 Personn mesUsers = new Personn();
+                
+             
               
+               
                  
          do{  
              if(reponse == 'o')
@@ -73,7 +76,7 @@ public class MyFristApp {
                         
                         //recupère info user                        
                         System.out.println(currentUser.presenteMoi());
-
+                       
                         //parcourt le tableau message pour les afficher
                         for (String messagesTab1 : messagesTab) {
                             //verifie si il y a des messages
@@ -82,12 +85,19 @@ public class MyFristApp {
                                 checkMsg = true;
                             }                        
                         }
+                        
+                        //Verification du cast Moderateur ou Users
+                         if(currentUser.getClass().getName().equals("myfristapp.Moderateur"))
+                        {
+                             System.out.println("Vous etes moderateur de niveau : " + ((Moderateur)currentUser).getLevelModeration());
+                        }
 
                         //si il n'y a aucun messages
                         if(checkMsg == false){
                             System.out.println("Désolé vous n'avez pas encore de message\n______________________________\n");
                            
-                        }                       
+                        }
+                      
                         break;
 
                         //Permet l'update des infos du user
