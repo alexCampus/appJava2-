@@ -7,6 +7,7 @@ package myfristapp;
 
 
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -25,12 +26,12 @@ public class MyFristApp {
         //bool pour check messages
         boolean checkMsg = false;
         //var  pour recuperer tableau
-        String messagesTab [];
+        ArrayList<String> messagesTab = new ArrayList<>();
         int nbMsg;
         //var permettant de checker choix utilisateur
         int choix;
         //var user ajout tableau user
-        Users usersTab [];
+        ArrayList<Users> usersTab = new ArrayList<>();
         IntWrapper nbUsers=new  IntWrapper();
         IntWrapper id =new  IntWrapper();
         
@@ -110,7 +111,7 @@ public class MyFristApp {
                         for (String messagesTab1 : messagesTab) {
                             //verifie si il y a des messages et permet de compter le nombre d'entrée
                             if(messagesTab1 != null){
-                                System.out.println(id + " -  " + messagesTab1.substring(0, 6) + "...");
+                                System.out.println(id.getValue() + " -  " + messagesTab1.substring(0, 6) + "...");
                                 nbMsg ++;
                                 id.setValue(id.getValue()+1);
                             }                        
@@ -121,7 +122,7 @@ public class MyFristApp {
                         //permet le choix du message si des messages existent                    
                         if(nbMsg > 0)
                         {
-                           System.out.println(monMenu.seeMsg(choix, nbMsg, currentUser));
+                           System.out.println(monMenu.seeMsg(nbMsg, currentUser));
 
                         }
                         break;
@@ -133,7 +134,7 @@ public class MyFristApp {
                         
                         for (Users userTab : usersTab) {
                             
-                            if(userTab != null) {
+                            if(userTab != null && userTab.isFriend() == false) {
                                System.out.println(monMenu.infoFriend(nbUsers, id, userTab));
                             }
                         }
@@ -143,7 +144,7 @@ public class MyFristApp {
                         //permet le choix des amis si des amis existent
                         if(nbUsers.getValue() > 0) 
                         {
-                            System.out.println(monMenu.addFriends(choix, nbUsers, usersTab));
+                            System.out.println(monMenu.addFriends(nbUsers, usersTab));
    
                         }                        
                        
@@ -159,6 +160,8 @@ public class MyFristApp {
                            
                             if(userTab != null && userTab.isFriend() == true) {
                                System.out.println(monMenu.infoFriend(nbUsers, id, userTab));
+                               //System.out.println(userTab);
+                           
                             }
                            
                         }
@@ -168,7 +171,7 @@ public class MyFristApp {
                         //permet le choix des amis si des amis existent
                         if(nbUsers.getValue() > 0) 
                         {
-                           System.out.println(monMenu.seeFriend(choix, nbUsers, usersTab, currentUser));
+                           System.out.println(monMenu.seeFriend(nbUsers, usersTab, currentUser));
                         }                
                        
                         break;

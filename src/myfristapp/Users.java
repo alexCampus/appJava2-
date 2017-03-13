@@ -5,6 +5,7 @@
  */
 package myfristapp;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -19,10 +20,10 @@ public class Users {
     private String ville;
     private int birthYear;
     private int age;
-    private String messages[];
+    private ArrayList<String> messages = new ArrayList<String>();
     private int nbMessage;
     private String presenteMoi;
-    private Users users[];
+    private ArrayList<Users> users = new ArrayList<Users>();
     private int nbUser;
     private boolean isFriend;
     
@@ -34,10 +35,6 @@ public class Users {
         prenom = pPrenom;
         ville = pVille;
         birthYear = pBirthYear;
-        nbMessage = 0;
-        messages = new String[20];
-        users = new Users[20];
-        nbUser = 0;
         isFriend = false;
       
     }
@@ -71,20 +68,20 @@ public class Users {
         return isFriend;
     }
     
-    public String [] getAllMessages(){       
+    public ArrayList<String> getAllMessages(){       
             return messages;        
     }
     
     public String getOneMessage(int nb){
-        return messages[nb];
+        return messages.get(nb);
     }
     
-    public Users [] getAllUsers(){
+    public ArrayList<Users> getAllUsers(){
         return users;
     }
     
     public String getOneUser(int nb){
-        return users[nb].presenteMoi();
+        return users.get(nb).presenteMoi();
     }
     
     public String presenteMoi(){
@@ -119,15 +116,15 @@ public class Users {
     
     public void setMessages(String pMessage)
     {       
-        messages[nbMessage] = pMessage;
-        nbMessage ++;
+        messages.add(pMessage);
+        //nbMessage ++;
         
     }
     
     public void setUsers(Users pUser)
     {
-        users[nbUser] = pUser;
-        nbUser ++;
+        users.add(pUser);
+        //nbUser ++;
     }
     
     public void toBeFriend(){

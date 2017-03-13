@@ -5,6 +5,7 @@
  */
 package myfristapp;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -114,10 +115,10 @@ public class Affichage {
                 return "Votre message a bien été enregistré!\n______________________________\n";  
      }
      
-     public String seeMsg(int choix, int nbMsg, Users currentUser){        
+     public String seeMsg(int nbMsg, Users currentUser){        
         
         System.out.println("Quel message souhaitez vous afficher? (taper son numero)");
-        choix = sc.nextInt();
+        int choix = sc.nextInt();
         sc.nextLine();
         System.out.println("______________________________\n");
 
@@ -131,33 +132,33 @@ public class Affichage {
         }     
      }
      
-     public String addFriends(int choix, IntWrapper nbUsers, Users [] usersTab){
+     public String addFriends(IntWrapper nbUsers, ArrayList<Users> usersTab){
          System.out.println("Quel amis souhaitez vous aimé? (taper son numero)");
-            choix = sc.nextInt();
+             int choix = sc.nextInt();
             sc.nextLine();
             System.out.println("______________________________\n");
 
             //gère les différents choix du user et valide le lien d'amitié 
             if(choix >0 && choix <= nbUsers.getValue())
             {
-                usersTab[choix -1].toBeFriend();      
+                usersTab.get(choix -1).toBeFriend();      
 
-                return "Vous etes maintenant amis avec " + usersTab[choix-1].getPrenom() + " " + usersTab[choix-1].getNom() + "\n______________________________\n";
+                return "Vous etes maintenant amis avec " + usersTab.get(choix-1).getPrenom() + " " + usersTab.get(choix-1).getNom() + "\n______________________________\n";
             }
             else{
                 return "Désolé, mais votre choix ne correspond à aucun amis.\n______________________________\n";
             }
      }
      
-     public String seeFriend(int choix, IntWrapper nbUsers, Users [] usersTab, Users currentUser ){
+     public String seeFriend(IntWrapper nbUsers, ArrayList<Users> usersTab, Users currentUser ){
          System.out.println("Quel amis souhaitez vous afficher? (taper son numero)");
-            choix = sc.nextInt();
+            int choix = sc.nextInt();
             sc.nextLine();   
             System.out.println("______________________________\n");
 
 
             //gère les différents choix du user et retourne l amis correspondant 
-            if(choix >0 && choix <= nbUsers.getValue() && usersTab[choix-1].isFriend() == true)
+            if(choix >0 && choix <= nbUsers.getValue() && usersTab.get(choix-1).isFriend() == true)
             {
                 return currentUser.getOneUser(choix-1) + "\n______________________________\n";
             }
