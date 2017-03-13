@@ -119,7 +119,7 @@ public class Users {
     {       
         messages.add(pMessage);
     }
-   
+    
      public void setFriends(Users pFriend)
     {
         friends.add(pFriend); 
@@ -128,6 +128,10 @@ public class Users {
     public void toBeFriend(){
         
          isFriend = true;
+    }
+    
+    public void deleteOneMsg(int nb){
+        messages.remove(nb);
     }
 
     

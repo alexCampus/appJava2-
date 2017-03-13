@@ -52,7 +52,7 @@ public class Affichage {
     
     public int menu(){        
        
-        System.out.println("Que souhaitez vous faire : taper \n 1 pour voir votre profil, \n 2 pour modifier vos informations, \n 3 pour écrire un message, \n 4 pour afficher un message, \n 5 pour ajouter un ami, \n 6 pour afficher les infos des amis\n______________________________\n");
+        System.out.println("Que souhaitez vous faire : \n 1 Voir votre profil, \n  \n 2 Modifier vos informations,\n \n 3 Ecrire un message,\n \n 4 Afficher un message,\n \n 5 Supprimer un message,\n \n 6 Ajouter un ami,\n \n 7 Afficher les infos des amis\n______________________________\n");
                 int choix = sc.nextInt();
                 sc.nextLine();
                 System.out.println("______________________________\n");
@@ -130,6 +130,23 @@ public class Affichage {
         else{
             return "Désolé, mais votre choix ne correspond à aucun message.";
         }     
+     }
+     
+     public String deleteMsg(int nbMsg, Users currentUser){
+          System.out.println("Quel message souhaitez vous supprimer? (taper son numero)");
+        int choix = sc.nextInt();
+        sc.nextLine();
+        System.out.println("______________________________\n");
+        
+         if(choix >0 && choix <= nbMsg)
+        {
+             currentUser.deleteOneMsg(choix-1);
+             return "Le message " + choix + " a bien été suppirmé";
+        }
+        else{
+            return "Désolé, mais votre choix ne correspond à aucun message.";
+        }     
+            
      }
      
      public String addFriends(IntWrapper nbUsers, ArrayList<Users> usersTab,Users currentUser){

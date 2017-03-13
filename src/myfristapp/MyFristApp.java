@@ -115,7 +115,7 @@ public class MyFristApp {
                         for (String messagesTab1 : messagesTab) {
                             //verifie si il y a des messages et permet de compter le nombre d'entrée
                             if(messagesTab1 != null){
-                                System.out.println(id.getValue() + " -  " + messagesTab1.substring(0, 6) + "...");
+                                System.out.println(id.getValue() + " -  " + messagesTab1.substring(0, 4) + "...");
                                 nbMsg ++;
                                 id.setValue(id.getValue()+1);
                             }                        
@@ -130,8 +130,34 @@ public class MyFristApp {
 
                         }
                         break;
-
+                        
                     case 5:
+                        
+                         nbMsg =0;
+  
+                         id.setValue(1);
+                        //parcourt le tableau message
+                        for (String messagesTab1 : messagesTab) {
+                            //verifie si il y a des messages et permet de compter le nombre d'entrée
+                            if(messagesTab1 != null){
+                                System.out.println(id.getValue() + " -  " + messagesTab1);
+                                nbMsg ++;
+                                id.setValue(id.getValue()+1);
+                            }                        
+                        }
+
+                        System.out.println("Vous avez " + nbMsg + " messages.");
+
+                        //permet le choix du message si des messages existent                    
+                        if(nbMsg > 0)
+                        {
+                           System.out.println(monMenu.deleteMsg(nbMsg, currentUser));
+
+                        }
+                        
+                        break;
+
+                    case 6:
                         
                         nbUsers.setValue(0);
                         id.setValue(0);
@@ -155,7 +181,7 @@ public class MyFristApp {
                        
                         break;
 
-                    case 6:
+                    case 7:
                   
                         nbUsers.setValue(friends.size());
                         id.setValue(0);
