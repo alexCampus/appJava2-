@@ -6,6 +6,7 @@
 package myfristapp;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
@@ -16,7 +17,8 @@ import java.util.Scanner;
 public class Affichage {
    
     private static Scanner sc=  new Scanner(System.in);;
-    
+    private int birthYear = 1900;
+    private int choix = 1;
     public Affichage(){ 
          
     }
@@ -42,7 +44,12 @@ public class Affichage {
 
 
                 System.out.println("Veuillez saisir votre année de naissance");
-                int birthYear = sc.nextInt();
+                try {
+                     birthYear = sc.nextInt();
+                 } catch (InputMismatchException IME) {
+                    System.out.println("Vous n'avez pas saisi une date uniquement composé de chiffre.");
+                 }
+               
                 sc.nextLine();
                 System.out.println("______________________________\n");
                 
@@ -66,22 +73,39 @@ public class Affichage {
                 }
                
                     return new Users(nom, prenom ,ville, birthYear);
-
             
-                
-            
-                      
                 
     }
     
-    public int menu(){        
-       
-        System.out.println("Que souhaitez vous faire : \n 1 Voir votre profil, \n  \n 2 Modifier vos informations,\n \n 3 Ecrire un message,\n \n 4 Afficher un message,\n \n 5 Supprimer un message,\n \n 6 Ajouter un ami,\n \n 7 Afficher les infos des amis\n______________________________\n");
-                int choix = sc.nextInt();
+    public int menu(Users currentUser){
+        choix =1;        
+        if(currentUser.getClass().getName().equals("myfristapp.Moderateur")){
+            if(((Moderateur)currentUser).getLevelModeration() == 1)
+            {
+                System.out.println("Que souhaitez vous faire : \n 1 Voir votre profil, \n  \n 2 Modifier vos informations,\n \n 3 Ecrire un message,\n \n 4 Afficher un message,\n \n 5 Supprimer un message,\n \n 6 Ajouter un ami,\n \n 7 Afficher les infos des amis, \n \n 8 Déconnexion, \n \n 9 Voir tous les messages\n______________________________\n"); 
+            }
+            else if(((Moderateur)currentUser).getLevelModeration() == 2)
+            {
+                System.out.println("Que souhaitez vous faire : \n 1 Voir votre profil, \n  \n 2 Modifier vos informations,\n \n 3 Ecrire un message,\n \n 4 Afficher un message,\n \n 5 Supprimer un message,\n \n 6 Ajouter un ami,\n \n 7 Afficher les infos des amis, \n \n 8 Déconnexion, \n \n 9 Voir tous les messages , \n \n 10 Supprimer un utilisateur\n______________________________\n"); 
+            }
+        } 
+        else 
+        {
+            System.out.println("Que souhaitez vous faire : \n 1 Voir votre profil, \n  \n 2 Modifier vos informations,\n \n 3 Ecrire un message,\n \n 4 Afficher un message,\n \n 5 Supprimer un message,\n \n 6 Ajouter un ami,\n \n 7 Afficher les infos des amis, \n \n 8 Déconnexion\n______________________________\n");
+        }
+              
+        try{
+                  choix = sc.nextInt();
+                  
+              } catch(InputMismatchException IME) {
+                    System.out.println("Vous n'avez pas saisi un chiffre.");
+                 }
                 sc.nextLine();
                 System.out.println("______________________________\n");
                 return choix;
+        
     }
+    
     
     public int menuModif() {      
         
@@ -227,7 +251,23 @@ public class Affichage {
             System.out.println("______________________________\n");
             return reponse;
      }
-       
+     
+     public String deleteUser(Personn mesUsers, ArrayList<Users> usersTab){
+        System.out.println("Quel utilisateur voulez vous supprimer? (taper son numero)");
+        choix = sc.nextInt();
+        sc.nextLine();
+        System.out.println("______________________________\n");
+        
+         if(choix >0 && choix <= usersTab.size())
+        {
+             mesUsers.deleteOneUser(choix-1);
+             return "Le message " + choix + " a bien été suppirmé";
+        }
+        else{
+            return "Désolé, mais votre choix ne correspond à aucun message.";
+        }     
+            
+     }
            
     
 }

@@ -22,6 +22,8 @@ public class Personn {
      public ArrayList<Users> getAllUsers(){
         return users;
     }
+     
+     
     
     public String getOneUser(int nb){
         return users.get(nb).presenteMoi();
@@ -31,6 +33,10 @@ public class Personn {
     {
         users.add(pUser);
         
+    }
+      
+      public void deleteOneUser(int nb){
+        users.remove(nb);
     }
     
 }

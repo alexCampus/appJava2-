@@ -8,6 +8,7 @@ package myfristapp;
 
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -19,19 +20,24 @@ public class MyFristApp {
     /**
      * @param args the command line arguments
      */
+    @SuppressWarnings("empty-statement")
     public static void main(String[] args) {
         
         //variable pour réponse de boucle
         char reponse = ' ';
+        char reponseDisconnect = ' ';
         //bool pour check messages
         boolean checkMsg = false;
         //var  pour recuperer tableau
         ArrayList<String> messagesTab = new ArrayList<>();
         int nbMsg;
         //var permettant de checker choix utilisateur
-        int choix;
+        int choix = 0;
         //var user ajout tableau user
         ArrayList<Users> usersTab = new ArrayList<>();
+      
+        Users currentUser = new Users();
+         Personn mesUsers;
         //var firend ajout tableau friends
         ArrayList<Users> friends = new ArrayList<>();
         IntWrapper nbUsers=new  IntWrapper();
@@ -40,35 +46,68 @@ public class MyFristApp {
         //Initialisation scanner
         Scanner sc;
         sc = new Scanner(System.in);
+        mesUsers = new Personn();
         
-                //création du user courant                
-                Affichage monMenu = new Affichage();
-                Users currentUser =  monMenu.createUser();
-                Personn mesUsers = new Personn();
-                
-             
+         Affichage monMenu = new Affichage();
+            do{  
+             do{
+            
+            System.out.println("Que souhaitez vous faire : \n 1 Inscription, \n  \n 2 Connexion,\n \n 3 Quitter,\n \n \n______________________________\n");
+            try {
+                     choix = sc.nextInt();
+                 } catch (InputMismatchException IME) {
+                    System.out.println("Vous n'avez pas saisi un chiffre.");
+                 }
+           
+            sc.nextLine();
+            System.out.println("______________________________\n");
+            
+            
+            switch(choix)
+            {
+                case 1:
+                    System.out.println("Bienvenue, veuillez saisir vos informations. \n \n______________________________\n");
+                    currentUser =  monMenu.createUser();
+                    messagesTab = currentUser.getAllMessages();
+                    
+                    mesUsers.setUsers(currentUser);
+                    
+                    usersTab = mesUsers.getAllUsers();
+                    friends = currentUser.getAllFriends();
+                    reponse = 'O';
+                    reponseDisconnect = 'N';
+                    break;
+                    
+                case 2:
+                    System.out.println("2");
+                    reponse = 'Z';
+                    break;
+                    
+                case 3:
+                    System.out.println("3");
+                    reponse = 'Z';
+                    reponseDisconnect = 'N';
+                    break;
+                    
+                default:
+                    reponseDisconnect = 'O';
+                    break;
+            }
+            
+        }while(reponseDisconnect == 'O');        
+       
               
+           //création du user courant                
                
-                 
-         do{  
-             if(reponse == 'o')
-             {
-                 Users otherUsers = monMenu.createUser();
-                 
-                 mesUsers.setUsers(otherUsers);
-                  
-             }
-
-            //boucle permettant les différents choix
-            do {
+           
                 
-                //initialisation des variables ayant une pportée globale dans la boucle
-                messagesTab = currentUser.getAllMessages();
-                usersTab = mesUsers.getAllUsers();
-                friends = currentUser.getAllFriends();
-                
+               
+          
+                 //boucle permettant les différents choix
+            while(reponse == 'O') {
+                           
                //recupération du choix utilisateur
-               choix = monMenu.menu();
+               choix = monMenu.menu(currentUser);
                
                 switch(choix)
                 {
@@ -97,7 +136,7 @@ public class MyFristApp {
                             System.out.println("Désolé vous n'avez pas encore de message\n______________________________\n");
                            
                         }
-                      
+                        reponse = 'O';
                         break;
 
                         //Permet l'update des infos du user
@@ -169,12 +208,12 @@ public class MyFristApp {
 
                     case 6:
                         
-                        nbUsers.setValue(0);
+                        nbUsers.setValue(-1);
                         id.setValue(0);
                         
                         for (Users user : usersTab) {
                            monMenu.infoFriend(nbUsers, id, user);
-                            if(user != null && user.isFriend() == false) {
+                            if(user != null && user.getNom() != currentUser.getNom()) {
                                System.out.println(id.getValue() + " " + user.getPrenom() + " " + user.getNom());
                                
                             }
@@ -216,30 +255,86 @@ public class MyFristApp {
                         }                
                        
                         break;
+                        
+                    case 8:
+                        System.out.println("Deconnexion");
+                        reponse = 'N';
+                        break;
+                    
+                    case 9:
+                       int idUser = 1;
+                        
+                        if(currentUser.getClass().getName().equals("myfristapp.Moderateur"))
+                        {
+                           for(Users user : usersTab)
+                           {
+                                if(user != null && user.getNom() != currentUser.getNom()) 
+                                {
+                                    
+                                    id.setValue(0);
+                                    
+                                    System.out.println(idUser   + " " + user.getPrenom() + " " + user.getNom() + " : ");
+                                    idUser ++;
+                                    for(String msg : user.getAllMessages())
+                                    {
+                                        id.setValue(id.getValue() + 1);
+                                        System.out.println("Message " + id.getValue() + " : " +  msg);
+                                    }
+                                    System.out.println("\n_______________________________\n");
+                                }
+                           }
+                           
+                           System.out.println("Selectionnez le user");
+                           choix = sc.nextInt()-1;
+                            sc.nextLine();
+                            nbMsg = usersTab.get(choix).getAllMessages().size();
+                            if(nbMsg > 0 && choix <= nbMsg)
+                            {
+                                System.out.println(monMenu.deleteMsg(nbMsg, usersTab.get(choix)));
+                            }
+                           
+                        }
+                        break;
+                        
+                    case 10:
+                    if(currentUser.getClass().getName().equals("myfristapp.Moderateur"))
+                    {
+                       if(((Moderateur)currentUser).getLevelModeration() == 2)
+                        {
+                            nbUsers.setValue(-1);
+                            id.setValue(0);
 
+                            for (Users user : usersTab) {
+                               monMenu.infoFriend(nbUsers, id, user);
+                                if(user != null && user.getNom() != currentUser.getNom()) {
+                                   System.out.println(id.getValue() + " " + user.getPrenom() + " " + user.getNom());
+
+                                }
+                            }
+                            if(nbUsers.getValue() > 0) 
+                            {
+                                System.out.println(monMenu.deleteUser(mesUsers, usersTab));
+                            }
+                            
+                        }
+                    }
+                    break;
+                    
                     default:
                         System.out.println("default");
 
                  }
-
+                /*
                 do{
                     
                     System.out.println("Voulez vous continuer? (O/N)");
                     reponse = monMenu.reponseBoucle();
                     
                 }while(reponse != 'N' && reponse != 'O');
-
-            }while(reponse == 'O');
-            
-            do{
-                
-                    System.out.println("Voulez vous saisir un autre utilisateur? (o/n)");
-                    reponse = monMenu.reponseBoucle();
-                    
-                }while(reponse != 'n' && reponse != 'o');           
-            
-        }while(reponse == 'o');
-        
+                */
+            };
+                       
+            }while(reponse == 'N');
         System.out.println("Au revoir !");
   
     }

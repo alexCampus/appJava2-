@@ -39,7 +39,7 @@ public class Users {
         isFriend = false;
       
     }
-    /*
+    
         //Constructeur d'un User
     public Users(){
         System.out.println("Création de l'utilisateur " );
@@ -51,7 +51,7 @@ public class Users {
         isFriend = false;
       
     }
-   */
+   
     
     // ACCESSEURS
     
